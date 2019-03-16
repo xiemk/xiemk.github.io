@@ -1,1 +1,3 @@
-theme: jekyll-theme-cayman
+permalink: /notes/:year/:month/:day/:title
+markdown: kramdown
+

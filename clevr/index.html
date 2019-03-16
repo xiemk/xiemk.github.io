@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://cs.stanford.edu/people/karpathy/densecap/ -->
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CLEVR: A Diagnostic Dataset for Compositional Language and Elementary Visual Reasoning</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+
+    <!-- Google fonts -->
+    <link href="../css/google-fonts.css" rel="stylesheet" type="text/css">
+
+    <!-- Google Analytics -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-50623594-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  </head>
+
+
+<body>
+<div class='container-fluid'>
+  
+<div class='row'>
+  <div class='col-xs-1 text-center'>
+    <a href="http://vision.stanford.edu/">
+      <img src="../images/visionlablogo.png" class='img-logo'>
+    </a>
+    <br>
+    <a href="http://stanford.edu/">
+      <img src="../images/stanfordlogo.jpg" class='img-logo'>
+    </a>
+  </div>
+  <div class='col-xs-10 text-center'>
+    <h1>CLEVR: A Diagnostic Dataset for <br> Compositional Language and Elementary Visual Reasoning</h1>
+  </div>
+  <div class='col-xs-1 center-block'>
+    <img src='../images/logos/facebook_logo.png' class='img-logo'>
+    <br>
+    <a href='https://research.fb.com/category/facebook-ai-research-fair/'>
+      <img src='../images/logos/fair_logo.png' class='img-logo'>
+    </a>
+  </div>
+</div>
+
+<div class='row section highlight'>
+  <div class='col-xs-6 col-xs-offset-3 text-justify'>
+  <h2>Abstract</h2>
+    When building artificial intelligence systems that can reason and answer questions about visual
+    data, we need diagnostic tests to analyze our progress and discover shortcomings. Existing
+    benchmarks for visual question answering can help, but have strong biases that models can
+    exploit to correctly answer questions without reasoning. They also conflate multiple sources
+    of error, making it hard to pinpoint model weaknesses. We present a diagnostic dataset that
+    tests a range of visual reasoning abilities. It contains minimal biases and has detailed
+    annotations describing the kind of reasoning each question requires. We use this dataset to
+    analyze a variety of modern visual reasoning systems, providing novel insights into their
+    abilities and limitations.
+  </div>
+</div>
+
+<div class='row section'>
+  <div class='col-xs-4 text-center col-xs-offset-1'>
+    <div class='row'>
+      <div class='col-xs-4'>
+        <a href="http://cs.stanford.edu/people/jcjohns/">
+          <img src='../images/me-v2.jpg' class='img-circle img-responsive'>
+          Justin Johnson
+        </a>
+      </div>
+      <div class='col-xs-4'>
+        <a href='http://home.bharathh.info'>
+          <img src='../images/bharath-hariharan.jpeg' class='img-circle img-responsive'>
+          Bharath Hariharan
+        </a>
+      </div>
+      <div class='col-xs-4'>
+        <a href='https://lvdmaaten.github.io'>
+          <img src='../images/laurens-van-der-maaten.jpg' class='img-circle img-responsive'>
+          Laurens van <br> der Maaten
+        </a>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-xs-4'>
+        <a href="http://vision.stanford.edu/feifeili/">
+          <img src='../images/feifei2.jpeg' class='img-circle img-responsive'>
+          Fei-Fei Li
+        </a>
+      </div>
+      <div class='col-xs-4'>
+        <a href='http://larryzitnick.org'>
+          <img src='../images/larry-zitnick.jpg' class='img-circle img-responsive'>
+          Larry Zitnick
+        </a>
+      </div>
+      <div class='col-xs-4'>
+        <a href='http://www.rossgirshick.info'>
+          <img src='../images/ross-girshick.jpeg' class='img-circle img-responsive'>
+          Ross Girshick
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class='col-xs-5 col-xs-offset-1 text-center'>
+    <a href="https://arxiv.org/pdf/1612.06890.pdf">
+      <img src='clevr-paper.png' class='img-responsive'>
+      Download paper (arXiv)
+    </a>
+  </div>
+</div>
+
+<div class='row section text-center' style='color:#900'>
+  <h4>Presented at CVPR 2017</h4>
+</div>
+
+<div class='row section highlight'>
+  <div class='col-xs-10 col-xs-offset-1'>
+    <h2>Download</h2>
+    <div class='row'>
+      <div class='col-xs-5'>
+        <h3>Main Dataset</h3>
+        This is the main dataset used in the paper. It consists of:
+        <ul>
+          <li>A <b>training set</b> of 70,000 images and 699,989 questions</li>
+          <li>A <b>validation set</b> of 15,000 images and 149,991 questions</li>
+          <li>A <b>test set</b> of 15,000 images and 14,988 questions</li>
+          <li><b>Answers</b> for all train and val questions</li>
+          <li><b>Scene graph</b> annotations for train and val images giving
+            ground-truth locations, attributes, and relationships for objects
+          <li><b>Functional program</b> representations for all training and validation images</li>
+        </ul>
+      </div>
+      <div class='col-xs-7'>
+        <h3>Compositional Generalization Test (CoGenT)</h3>
+        <div class='text-justify' style='margin-bottom:5px'>
+          This data was used in Section 4.7 of the paper to study the ability of models
+          to recognize novel combinations of attributes at test-time. The data is generated
+          in two different conditions:
+        </div>
+        <div class='row'>
+          <div class='col-xs-6'>
+            <b>Condition A</b>
+            <ul>
+              <li>
+                Cubes are <span class='text-gray'>gray</span>, <span class='text-blue'>blue</span>,
+                <span class='text-brown'>brown</span>, or <span class='text-yellow'>yellow</span>
+              </li>
+              <li>
+                Cylinders are <span class='text-red'>red</span>, <span class='text-green'>green</span>,
+                <span class='text-purple'>purple</span>, or <span class='text-cyan'>cyan</span>
+              </li>
+              <li>Spheres can have any color</li>
+            </ul>
+          </div>
+          <div class='col-xs-6'>
+            <b>Condition B</b>
+            <ul>
+              <li>
+                Cubes are <span class='text-red'>red</span>, <span class='text-green'>green</span>,
+                <span class='text-purple'>purple</span>, or <span class='text-cyan'>cyan</span>
+              </li>
+              <li>
+                Cylinders are <span class='text-gray'>gray</span>, <span class='text-blue'>blue</span>,
+                <span class='text-brown'>brown</span>, or <span class='text-yellow'>yellow</span>
+              </li>
+              <li>Spheres can have any color</li>
+            </ul>
+          </div>
+        </div>
+        This dataset consists of:
+        <div class='row'>
+          <div class='col-xs-6'>
+            <ul>
+              <li>A <b>training set</b> of 70,000 images and 699,960 questions in <b>Condition A</b></li>
+              <li>A <b>validation set</b> of 15,000 images and 150,000 questions in <b>Condition A</b></li>
+              <li>A <b>validation set</b> of 15,000 images and 149,991 questions in <b>Condition B</b></li>
+            </ul>
+          </div>
+          <div class='col-xs-6'>
+            <ul>
+              <li>A <b>test set</b> of 15,000 images and 149,980 questions in <b>Condition B</b></li>
+              <li>A <b>test set</b> of 15,000 images and 149,992 questions in <b>Condition B</b></li>
+              <li><b>Answers</b>, <b>scene graphs</b> and <b>functional programs</b> for all train and val images and questions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-xs-5'>
+        <a href='https://s3-us-west-1.amazonaws.com/clevr/CLEVR_v1.0.zip' class='download-link'>
+          Download CLEVR v1.0 (18 GB)
+        </a>
+        <br>
+        <a href='https://s3-us-west-1.amazonaws.com/clevr/CLEVR_v1.0_no_images.zip' class='download-link'>
+          Download CLEVR v1.0 (no images) (86 MB)
+        </a>
+      </div>
+      <div class='col-xs-7'>
+        <a href='https://s3-us-west-1.amazonaws.com/clevr/CLEVR_CoGenT_v1.0.zip' class='download-link'>
+          Download CLEVR-CoGenT v1.0 (24 GB)
+        </a>
+        <br>
+        <a href='https://s3-us-west-1.amazonaws.com/clevr/CLEVR_CoGenT_v1.0_no_images.zip' class='download-link'>
+          Download CLEVR-CoGenT v1.0 (no images) (106 MB)
+        </a>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-xs-12' style='margin-top:20px;font-size:14px'>
+        All data is released under the
+        <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC BY 4.0</a> license.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='row section'>
+  <div class='col-xs-6'>
+    <div class='row'>
+      <div class='col-xs-8 col-xs-offset-2 text-justify'>
+        Questions in CLEVR test various aspects of visual reasoning including
+        <span class='text-orange'><b>attribute identification</b></span>,
+        <span class='text-red'><b>counting</b></span>,
+        <span class='text-blue'><b>comparison</b></span>,
+        <span class='text-green'><b>spatial relationships</b></span>, and
+        <span class='text-purple'><b>logical operations</b></span>.
+        <img src='teaser.jpg' class='img-responsive img-center'>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-xs-10 col-xs-offset-1'>
+        <div>
+          <b>Q:</b>
+          Are there an
+          <span class='text-blue'><b>equal</b></span>
+          <span class='text-red'><b>number</b></span> of
+          <span class='text-orange'><b>large things</b></span> and
+          <span class='text-orange'><b>metal spheres</b></span>?
+        </div>
+        <div>
+          <b>Q:</b>
+          <span class='text-orange'><b>What size</b></span> is the
+          <span class='text-orange'><b>cylinder</b></span>
+          <span class='text-green'><b>that is left of</b></span> the
+          <span class='text-orange'><b>brown metal</b></span> thing
+          <span class='text-green'><b>that is left of</b></span> the
+          <span class='text-orange'><b>big sphere</b></span>?
+        </div>
+        <div>
+          <b>Q:</b>
+          There is a <span class='text-orange'><b>sphere</b></span>
+          with the <span class='text-blue'><b>same size as</b></span>
+          the <span class='text-orange'><b>metal cube</b></span>;
+          is it <span class='text-blue'><b>made of the same material as</b></span>
+          the <span class='text-orange'><b>small red sphere</b></span>?
+        </div>
+        <div>
+          <b>Q:</b>
+          <span class='text-red'><b>How many</b></span> objects are
+          <span class='text-purple'><b>either</b></span>
+          <span class='text-orange'><b>small cylinders</b></span> or
+          <span class='text-orange'><b>red</b></span> things?
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='col-xs-6'>
+    <div class='row'>
+      <div class='col-xs-10 col-xs-offset-1'>
+        Each question in CLEVR is represented both in <b>natural language</b> and as
+        a <b>functional program</b>. The functional program representation allows for
+        precise determination of the reasoning skills required to answer each question.
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-xs-10 col-xs-offset-1'>
+        <img src='functions.png' class='img-responsive' style='margin-top:15px'>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='row section highlight'>
+  <div class='col-xs-10 col-xs-offset-1'>
+    <h2>Dataset Generation Code</h2>
+    The code for generating the CLEVR dataset is <a href="https://github.com/facebookresearch/clevr-dataset-gen">available on GitHub</a>.
+    With this code you can:
+    <ul>
+      <li>Render new CLEVR images using <a href="https://www.blender.org/">Blender</a></li>
+      <li>Generate new CLEVR questions for CLEVR images</li>
+    </ul>
+  </div>
+</div>
+
+<div class='row section'>
+  <div class='col-xs-10 col-xs-offset-1'>
+    <h2>Acknowledgments</h2>
+    This work was performed during a summer internship at
+    <a href='https://research.fb.com/category/facebook-ai-research-fair/'>Facebook AI Research</a>.
+  </div>
+</div>
+
+</div>
+
+
+</body>
+</html>
